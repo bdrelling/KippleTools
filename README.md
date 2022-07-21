@@ -1,6 +1,12 @@
 # PluginSupport
 
-## Why are these resources not included in the [swift-kipple/Plugins](https://github.com/swift-kipple/Plugins) repository?
+## Notes
+
+- This package uses `SwiftFormat` directly to support formatting. See `scripts/git-hookes/pre-commit` for an example.
+
+## Frequently Asked Questions
+
+### Why are these resources not included in the [swift-kipple/Plugins](https://github.com/swift-kipple/Plugins) repository?
 
 Swift Package Plugins are unable to include resources.
 
@@ -8,7 +14,7 @@ As such, this library bundles those resources and, when provided as a dependency
 
 tl;dr: This module bundles files and includes a command to print file paths for access by Plugins.
 
-## Why not just include this package within the [swift-kipple/Plugins](https://github.com/swift-kipple/Plugins) repository directly?
+### Why not just include this package within the [swift-kipple/Plugins](https://github.com/swift-kipple/Plugins) repository directly?
 
 Unfortunately, this doesn't appear to be possible at time of writing. Referencing a remote repository that uses a relative path returns an error:
 
