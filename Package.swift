@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "PluginSupport",
+    name: "KipplePluginSupport",
     products: [
         .executable(name: "kipple-file-provider", targets: ["FileProvider"]),
     ],
