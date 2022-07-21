@@ -5,10 +5,10 @@ import PackageDescription
 let package = Package(
     name: "PluginSupport",
     products: [
-        .executable(name: "kipple-file-fetcher", targets: ["FileFetcher"]),
+        .executable(name: "kipple-file-provider", targets: ["FileProvider"]),
     ],
     dependencies: [
-//        .package(url: "https://github.com/swift-kipple/Plugins", from: "0.3.0")
+        .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.49.13"),
     ],
     targets: [
         // Product Targets
@@ -21,7 +21,7 @@ let package = Package(
         ),
         // Executable Targets
         .executableTarget(
-            name: "FileFetcher",
+            name: "FileProvider",
             dependencies: [
                 .target(name: "PluginCore"),
             ]

@@ -18,7 +18,7 @@ struct Arguments {
     var fileName: String?
 }
 
-enum FileFetcherError: Error {
+enum FileProviderError: Error {
     case argumentsNotFound
     case argumentNotFound(String)
     case fileNotFound(tool: String, name: String?)
@@ -33,12 +33,12 @@ func getArguments() throws -> Arguments {
     let arguments = Array(ProcessInfo.processInfo.arguments.dropFirst())
 
     guard arguments.count > 0 else {
-        throw FileFetcherError.argumentsNotFound
+        throw FileProviderError.argumentsNotFound
     }
 
     // Get the first argument from the list, which should correspond to the tool.
     guard let tool = arguments.first else {
-        throw FileFetcherError.argumentNotFound("tool")
+        throw FileProviderError.argumentNotFound("tool")
     }
 
     // Get the second argument from the list, which should correspond to the file name to use.
@@ -50,7 +50,7 @@ func getArguments() throws -> Arguments {
 
 func printFileString(for arguments: Arguments) throws {
     guard let file = FileClerk.shared.configurationFile(for: arguments.tool, named: arguments.fileName) else {
-        throw FileFetcherError.fileNotFound(tool: arguments.tool, name: arguments.fileName)
+        throw FileProviderError.fileNotFound(tool: arguments.tool, name: arguments.fileName)
     }
 
     // Print this data to the console in an environment variable format.
