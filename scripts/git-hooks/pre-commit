@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Run the format plugin command, telling it to detect and use modified files only.
+# Once the command is complete, modified files are added back to the commit.
+swift package plugin --allow-writing-to-package-directory format --staged-only --quiet
