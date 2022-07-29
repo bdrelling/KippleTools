@@ -45,7 +45,7 @@ public class FileClerk {
 
         let files = self.configurationFiles(for: tool)
         let firstFile = files.first { $0.name == name }
-        
+
         return firstFile
     }
 
@@ -55,5 +55,13 @@ public class FileClerk {
         }
 
         return self.configurationFile(for: tool, named: name)
+    }
+
+    public func defaultConfigurationFile(for tool: ConfigurationTool) -> ConfigurationFile? {
+        self.configurationFile(for: tool, named: "default")
+    }
+
+    public func defaultConfigurationFile(for tool: String) -> ConfigurationFile? {
+        self.configurationFile(for: tool, named: "default")
     }
 }
