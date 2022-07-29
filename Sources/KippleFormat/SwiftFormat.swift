@@ -13,7 +13,7 @@ final class SwiftFormat {
         CLI.print = self.print
     }
 
-    func run(in workingDirectory: String = FileManager.default.currentDirectoryPath, arguments: [String] = ["."]) throws {
+    func run(in workingDirectory: String = FileManager.default.currentDirectoryPath, arguments: [String] = ["."]) {
         // We need to get the first argument, which is typically the path to the current running command.
         // We pass this into SwiftFormat, which presumably then drops it to parse the remaining arguments.
         // Either way, this allows for consistency with SwiftFormat's functionality.
@@ -21,7 +21,7 @@ final class SwiftFormat {
             return
         }
 
-        let exitCode = CLI.run(in: workingDirectory, with: [commandArgument] + arguments)
+        _ = CLI.run(in: workingDirectory, with: [commandArgument] + arguments)
     }
 
     private func print(message: String, type: CLI.OutputType) {

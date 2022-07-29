@@ -8,47 +8,47 @@ let package = Package(
         .macOS(.v10_15),
     ],
     products: [
-        .executable(name: "kipple-format", targets: ["KippleFormat"]),
-        .executable(name: "kipple-file-provider", targets: ["KippleFileProvider"]),
+        .executable(name: "kipple", targets: ["kipple"]),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", from: "1.1.3"),
         .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.49.13"),
     ],
     targets: [
+        // Executable Targets
+        .executableTarget(
+            name: "kipple",
+            dependencies: [
+                .target(name: "KippleFormat"),
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
+            ]
+        ),
         // Product Targets
         .target(
             name: "KippleToolsCore",
             dependencies: [
+            ],
+            resources: [
+                .process("Resources"),
+            ]
+        ),
+        .target(
+            name: "KippleFormat",
+            dependencies: [
+                .target(name: "KippleToolsCore"),
+                .product(name: "SwiftFormat", package: "SwiftFormat"),
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
             ],
             resources: [
                 .process("Resources"),
             ]
         ),
-        // Executable Targets
-        .executableTarget(
-            name: "KippleFormat",
-            dependencies: [
-                .target(name: "KippleToolsCore"),
-                .product(name: "SwiftFormat", package: "SwiftFormat"),
-            ],
-            resources: [
-                .process("Resources"),
-            ]
-        ),
-        .executableTarget(
-            name: "KippleFileProvider",
-            dependencies: [
-                .target(name: "KippleToolsCore"),
-            ]
-        ),
         // Test Targets
-//        .testTarget(
-//            name: "PluginCoreTests",
-//            dependencies: [
-//                .target(name: "PluginCore"),
-//            ]
-//        ),
+        .testTarget(
+            name: "KippleToolsCoreTests",
+            dependencies: [
+                .target(name: "KippleToolsCore"),
+            ]
+        ),
     ]
 )
