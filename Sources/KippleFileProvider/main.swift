@@ -1,7 +1,7 @@
 // Copyright © 2022 Brian Drelling. All rights reserved.
 
 import Foundation
-import PluginCore
+import KippleToolsCore
 
 // MARK: - Main
 
@@ -49,7 +49,7 @@ func getArguments() throws -> Arguments {
 }
 
 func printFileString(for arguments: Arguments) throws {
-    guard let file = FileClerk.shared.configurationFile(for: arguments.tool, named: arguments.fileName) else {
+    guard let file = FileClerk().configurationFile(for: arguments.tool, named: arguments.fileName) else {
         throw FileProviderError.fileNotFound(tool: arguments.tool, name: arguments.fileName)
     }
 
