@@ -98,10 +98,6 @@ public final class FileFormatter {
             }
         }()
 
-        guard filesToFormat.count > 0 else {
-            throw FormatError.targetFilesNotFound
-        }
-
         if isDebugging {
             print("------------------------------------------------------------")
             print("DEBUG INFO")
@@ -159,6 +155,11 @@ public final class FileFormatter {
             print("=> SwiftFormat Command:")
             print(command)
             print("------------------------------------------------------------")
+        }
+        
+        guard filesToFormat.count > 0 else {
+            print("No files to format. Exiting.")
+            return
         }
 
         let swiftFormat = SwiftFormat()
