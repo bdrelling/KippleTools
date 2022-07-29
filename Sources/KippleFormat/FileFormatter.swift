@@ -38,8 +38,9 @@ public final class FileFormatter {
         targets: [String] = ["."],
         shouldFormatStagedFilesOnly: Bool = false,
         shouldSkipCache: Bool = false,
-        isDebugging: Bool,
-        isDryRun: Bool
+        isDebugging: Bool = false,
+        isDryRun: Bool = false,
+        isQuiet: Bool = false
     ) throws {
         let swiftVersion = swiftVersion ?? Self.defaultSwiftVersion
 
@@ -137,9 +138,20 @@ public final class FileFormatter {
             filesToFormat,
             ["--swiftversion", swiftVersion],
             ["--config", configurationFilePath],
-            ["--cache", String(shouldSkipCache)],
             ["--exclude", self.excludedFiles.joined(separator: ",")],
         ].flatMap { $0 }
+
+        if shouldSkipCache {
+            arguments.append(contentsOf: ["--cache", "ignore"])
+        }
+
+        if isDryRun {
+            arguments.append("--dryrun")
+        }
+
+        if isQuiet {
+            arguments.append("--quiet")
+        }
 
         if isDebugging {
             let command = "$ swift run swiftformat \(arguments.joined(separator: " "))"
@@ -147,10 +159,6 @@ public final class FileFormatter {
             print("=> SwiftFormat Command:")
             print(command)
             print("------------------------------------------------------------")
-        }
-
-        if isDryRun {
-            arguments.append("--dryrun")
         }
 
         let swiftFormat = SwiftFormat()

@@ -1,3 +1,5 @@
+// Copyright © 2022 Brian Drelling. All rights reserved.
+
 import ArgumentParser
 import Foundation
 
@@ -29,6 +31,9 @@ public struct FormatCommand: AsyncParsableCommand {
     @Flag(name: .customLong("dryrun"), help: "Whether or not to skip the formatting step.")
     private var isDryRun: Bool = false
 
+    @Flag(name: .customLong("quiet"), help: "Whether or not to quiet the SwiftFormat output.")
+    private var isQuiet: Bool = false
+
     public init() {}
 
     public mutating func run() async throws {
@@ -39,7 +44,8 @@ public struct FormatCommand: AsyncParsableCommand {
             shouldFormatStagedFilesOnly: self.shouldFormatStagedFilesOnly,
             shouldSkipCache: self.shouldSkipCache,
             isDebugging: self.isDebugging,
-            isDryRun: self.isDryRun
+            isDryRun: self.isDryRun,
+            isQuiet: self.isQuiet
         )
     }
 }
