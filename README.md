@@ -1,6 +1,6 @@
 # KippleTools
 
-<!-- [![CI Status](https://github.com/swift-kipple/Tools/actions/workflows/tests.yml/badge.svg)](https://github.com/swift-kipple/Tools/actions/workflows/tests.yml) -->
+[![CI Status](https://github.com/swift-kipple/Tools/actions/workflows/tests.yml/badge.svg)](https://github.com/swift-kipple/Tools/actions/workflows/tests.yml)
 [![Latest Release](https://img.shields.io/github/v/tag/swift-kipple/Tools?color=blue&label=latest)](https://github.com/swift-kipple/Tools/releases)
 [![Swift Compatibility](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fswift-kipple%2FTools%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/swift-kipple/Tools)
 [![Platform Compatibility](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fswift-kipple%2FTools%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/swift-kipple/Tools)
