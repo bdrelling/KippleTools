@@ -156,7 +156,7 @@ public final class FileFormatter {
             print(command)
             print("------------------------------------------------------------")
         }
-        
+
         guard filesToFormat.count > 0 else {
             print("No files to format. Exiting.")
             return
