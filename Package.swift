@@ -20,23 +20,22 @@ let package = Package(
             name: "kipple",
             dependencies: [
                 .target(name: "KippleFormat"),
-                .product(name: "ArgumentParser", package: "swift-argument-parser"),
             ]
         ),
         // Product Targets
         .target(
-            name: "KippleToolsCore",
+            name: "KippleFormat",
             dependencies: [
+                .target(name: "KippleToolsCore"),
+                .product(name: "SwiftFormat", package: "SwiftFormat"),
             ],
             resources: [
                 .process("Resources"),
             ]
         ),
         .target(
-            name: "KippleFormat",
+            name: "KippleToolsCore",
             dependencies: [
-                .target(name: "KippleToolsCore"),
-                .product(name: "SwiftFormat", package: "SwiftFormat"),
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
             ],
             resources: [
