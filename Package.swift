@@ -9,6 +9,7 @@ let package = Package(
     ],
     products: [
         .executable(name: "kipple", targets: ["kipple"]),
+        .library(name: "KippleToolsCore", targets: ["KippleToolsCore"]),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", from: "1.1.3"),
