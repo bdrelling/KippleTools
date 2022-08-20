@@ -5,7 +5,7 @@ import Foundation
 import KippleFormat
 
 @main
-struct KippleCommand: AsyncParsableCommand {
+struct KippleCommand: ParsableCommand {
     static let configuration: CommandConfiguration = .init(
         commandName: "kipple",
         abstract: "A set of core utilities for use with Kipple projects.",

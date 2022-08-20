@@ -4,7 +4,7 @@ import ArgumentParser
 import Foundation
 
 // swiftformat:options --varattributes prev-line
-public struct FormatCommand: AsyncParsableCommand {
+public struct FormatCommand: ParsableCommand {
     public static let configuration: CommandConfiguration = .init(
         commandName: "format",
         abstract: "Formatters Swift files."
@@ -36,7 +36,7 @@ public struct FormatCommand: AsyncParsableCommand {
 
     public init() {}
 
-    public mutating func run() async throws {
+    public mutating func run() throws {
         try FileFormatter.format(
             configurationFile: self.configurationFile,
             swiftVersion: self.swiftVersion,
