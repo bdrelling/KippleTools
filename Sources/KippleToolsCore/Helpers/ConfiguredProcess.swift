@@ -69,12 +69,14 @@ enum ProcessError: Error {
 public extension ConfiguredProcess {
     static func bash(
         command: String,
-        environment _: [String: String]? = nil,
-        workingDirectory _: String? = nil
+        environment: [String: String]? = nil,
+        workingDirectory: String? = nil
     ) -> ConfiguredProcess {
         .init(
             executablePath: "/bin/bash",
-            arguments: ["-c", command]
+            arguments: ["-c", command],
+            environment: environment,
+            workingDirectory: workingDirectory
         )
     }
 }
