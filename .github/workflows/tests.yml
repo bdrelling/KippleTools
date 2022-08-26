@@ -9,9 +9,9 @@ on:
 
 jobs:
   prepare:
-    uses: swift-kipple/Tools/.github/workflows/prepare.yml
+    uses: swift-kipple/Tools/.github/workflows/prepare.yml@main
   swift_test_apple:
-    uses: swift-kipple/Tools/.github/workflows/swift_test_apple.yml
+    uses: swift-kipple/Tools/.github/workflows/swift_test_apple.yml@main
     needs: [prepare]
     strategy:
       fail-fast: false
@@ -24,7 +24,7 @@ jobs:
       platform: macOS
       build_method: swift
   swift_test_linux:
-    uses: swift-kipple/Tools/.github/workflows/swift_test_linux.yml
+    uses: swift-kipple/Tools/.github/workflows/swift_test_linux.yml@main
     needs: [prepare]
     strategy:
       fail-fast: false
