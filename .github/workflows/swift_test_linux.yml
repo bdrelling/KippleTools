@@ -1,0 +1,40 @@
+name: Swift Test (Linux)
+
+on:
+  workflow_call:
+    inputs:
+      swift_version:
+        required: true
+        type: string
+      output_directory:
+        required: false
+        type: string
+        default: deploy
+
+env:
+  LC_ALL: en_US.UTF-8
+  LANG: en_US.UTF-8
+
+jobs:
+  swift_test_linux:
+    name: swift test (Ubuntu, Swift ${{ inputs.swift_version }})
+    # Available Runners: https://github.com/actions/virtual-environments
+    runs-on: ubuntu-latest
+    # Available Docker Images: https://hub.docker.com/_/swift/
+    container: swift:${{ inputs.swift_version }}-focal
+    # TODO: Figure out how to get this to continue, but pass the failed state properly to the Discord notifications.
+    # continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Swift Version Check
+        run: swift --version
+      - name: Run Tests
+        # TODO: the --output command here is brittle since it can pass an empty string and break the next argument.
+        run: bash ./scripts/swift_test.sh --output ${{ inputs.output_directory }}
+      - name: Upload Step Output
+        uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: Output (Ubuntu, Swift ${{ inputs.swift_version }})
+          path: ${{ inputs.output_directory }}
