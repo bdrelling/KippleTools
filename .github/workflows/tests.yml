@@ -9,6 +9,6 @@ on:
 
 jobs:
   swift_test:
-    uses: bdrelling/workflows/.github/workflows/swift_test_universal_package_async.yml@main
+    uses: bdrelling/workflows/.github/workflows/swift_test_executable.yml@main
     with:
       scheme: KippleTools-Package
