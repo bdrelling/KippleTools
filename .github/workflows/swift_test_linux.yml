@@ -31,7 +31,7 @@ jobs:
         run: swift --version
       - name: Run Tests
         # TODO: the --output command here is brittle since it can pass an empty string and break the next argument.
-        run: bash ./scripts/swift_test.sh --output ${{ inputs.output_directory }}
+        run: bash <( curl https://raw.githubusercontent.com/swift-kipple/Tools/main/scripts/swift_test.sh) --output ${{ inputs.output_directory }}
       - name: Upload Step Output
         uses: actions/upload-artifact@v1
         if: always()
