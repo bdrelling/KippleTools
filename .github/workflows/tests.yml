@@ -1,4 +1,4 @@
-name: Build
+name: Tests
 
 on:
   workflow_dispatch:
@@ -13,7 +13,6 @@ jobs:
     secrets:
       DISCORD_CI_WEBHOOK: ${{ secrets.DISCORD_CI_WEBHOOK }}
     with:
-      scheme: KipplePlugins-Package
-      subcommand: build
+      scheme: KippleTools-Package
       platforms: macOS Linux
       swift-versions: 5.5 5.6
