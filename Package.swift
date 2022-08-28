@@ -45,6 +45,12 @@ let package = Package(
         ),
         // Test Targets
         .testTarget(
+            name: "KippleFormatTests",
+            dependencies: [
+                .target(name: "KippleFormat"),
+            ]
+        ),
+        .testTarget(
             name: "KippleToolsCoreTests",
             dependencies: [
                 .target(name: "KippleToolsCore"),

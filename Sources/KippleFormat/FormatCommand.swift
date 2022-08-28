@@ -10,8 +10,8 @@ public struct FormatCommand: ParsableCommand {
         abstract: "Formatters Swift files."
     )
 
-    @Option(name: .customLong("config"), help: "The SwiftFormat configuration file path or template to use. (default: \"default\")")
-    private var configurationFile: String?
+    @Option(name: .customLong("config"), help: "The SwiftFormat configuration file path or template to use. (default: \".swiftformat\")")
+    private var configurationFile: String = ".swiftformat"
 
     @Option(name: .long, help: "The Swift version to format.")
     private var swiftVersion: String?

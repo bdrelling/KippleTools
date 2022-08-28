@@ -46,7 +46,7 @@ public struct ConfiguredProcess {
         }
 
         // Convert data to strings.
-        let output = String(data: outputData, encoding: .utf8)
+        let output = String(data: outputData, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines)
 
         // If there's no output, throw an error
         // Successful commands should still return empty output, so treat this as a command failure as well

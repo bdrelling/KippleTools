@@ -33,7 +33,7 @@ public final class FileFormatter {
     // MARK: - Methods
 
     public static func format(
-        configurationFile: String? = nil,
+        configurationFile: String = ".swiftformat",
         swiftVersion: String? = nil,
         targets: [String] = ["."],
         shouldFormatStagedFilesOnly: Bool = false,
@@ -47,44 +47,8 @@ public final class FileFormatter {
         // TODO: Allow this to be configured.
         let workingDirectory = FileManager.default.currentDirectoryPath
 
-        let fileClerk = FileClerk(bundle: .module)
-
         // Detect the intended configuration file to use.
-        // The order of precedence is as follows:
-        //   1. Any file argument passed in should be respected first and foremost.
-        //   2. Any detected file within the working directory where this is executed.
-        //   3. The default templated configuration file.
-        let configurationFilePath: String = try {
-            if let config = configurationFile {
-                // A config argument was explicitly passed in, so search for files, then templates
-                if FileManager.default.fileExists(atPath: config) {
-                    // Evaluate if a file exists at this path. If it does, return it.
-                    return config
-                } else if let configurationFile = fileClerk.configurationFile(for: .swiftformat, named: config) {
-                    // Evaluate if a template exists with this name. If it does, return it.
-                    return configurationFile.path
-                } else {
-                    // Since config was provided and there is no path or template, return an error.
-                    throw FormatError.configurationFileNotFound(config)
-                }
-            } else {
-                // No config argument was passed in, so we attempt to detect it.
-
-                // First, we define the default configuration file path, which looks for a .swiftformat file in the working directory.
-                let defaultConfigurationFilePath = "\(workingDirectory)/.swiftformat"
-
-                if FileManager.default.fileExists(atPath: defaultConfigurationFilePath) {
-                    // There is a .swiftformat file in this directory, so return it as the path.
-                    return defaultConfigurationFilePath
-                } else if let defaultConfigurationFile = fileClerk.defaultConfigurationFile(for: .swiftformat) {
-                    // Finally, we attempt to return the default configuration file from this module.
-                    return defaultConfigurationFile.path
-                } else {
-                    // If no files were ever detected, throw an error.
-                    throw FormatError.configurationFileNotDetected
-                }
-            }
-        }()
+        let configurationFilePath: String = try self.pathForConfigurationFile(configurationFile, workingDirectory: workingDirectory)
 
         let filesToFormat: [String] = try {
             guard targets == ["."] else {
@@ -169,6 +133,26 @@ public final class FileFormatter {
         // We only do this if we weren't doing a dry run.
         if shouldFormatStagedFilesOnly, !isDryRun {
             try self.addFilesToCommit(files: filesToFormat)
+        }
+    }
+
+    static func pathForConfigurationFile(_ configurationFile: String = ".swiftformat", workingDirectory: String = FileManager.default.currentDirectoryPath) throws -> String {
+        // The order of precedence is as follows:
+        //   1. Files at an exact path.
+        //   2. Files relative to the working directory.
+        //   3. Bundled files with an exact matching name.
+        //   4. The default bundled file. (only applicable if the configurationFile paramteter matches its default value)
+        if FileManager.default.fileExists(atPath: configurationFile) {
+            return configurationFile
+        } else if FileManager.default.fileExists(atPath: "\(workingDirectory)/\(configurationFile)") {
+            return "\(workingDirectory)/\(configurationFile)"
+        } else if let path = Bundle.module.path(forResource: configurationFile, ofType: nil) {
+            return path
+        } else if configurationFile == ".swiftformat", let path = Bundle.module.path(forResource: "default.swiftformat", ofType: nil) {
+            return path
+        } else {
+            // Since config was provided and there is no path or template, return an error.
+            throw FormatError.configurationFileNotFound(configurationFile)
         }
     }
 
