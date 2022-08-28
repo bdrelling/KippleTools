@@ -12,8 +12,8 @@ let package = Package(
         .library(name: "KippleToolsCore", targets: ["KippleToolsCore"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-argument-parser", from: "1.0.0"),
-        .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.49.13"),
+        .package(url: "https://github.com/apple/swift-argument-parser", from: "1.1.4"),
+        .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.49.17"),
     ],
     targets: [
         // Executable Targets
