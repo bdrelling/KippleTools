@@ -40,7 +40,8 @@ public final class FileFormatter {
         shouldSkipCache: Bool = false,
         isDebugging: Bool = false,
         isDryRun: Bool = false,
-        isQuiet: Bool = false
+        isQuiet: Bool = false,
+        isVerbose: Bool = false
     ) throws {
         let swiftVersion = swiftVersion ?? Self.defaultSwiftVersion
 
@@ -111,6 +112,10 @@ public final class FileFormatter {
 
         if isQuiet {
             arguments.append("--quiet")
+        }
+
+        if isVerbose {
+            arguments.append("--verbose")
         }
 
         if isDebugging {

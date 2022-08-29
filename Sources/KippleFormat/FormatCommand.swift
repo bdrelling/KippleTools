@@ -34,6 +34,9 @@ public struct FormatCommand: ParsableCommand {
     @Flag(name: .customLong("quiet"), help: "Whether or not to quiet the SwiftFormat output.")
     private var isQuiet: Bool = false
 
+    @Flag(name: .customLong("verbose"), help: "Whether or not to produce verbose SwiftFormat output.")
+    private var isVerbose: Bool = false
+
     public init() {}
 
     public mutating func run() throws {
@@ -45,7 +48,8 @@ public struct FormatCommand: ParsableCommand {
             shouldSkipCache: self.shouldSkipCache,
             isDebugging: self.isDebugging,
             isDryRun: self.isDryRun,
-            isQuiet: self.isQuiet
+            isQuiet: self.isQuiet,
+            isVerbose: self.isVerbose
         )
     }
 }
