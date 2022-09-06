@@ -11,6 +11,7 @@ public struct KippleCommand: ParsableCommand {
             FormatCommand.self,
             InstallCommand.self,
             SetupCommand.self,
+            UninstallCommand.self,
         ]
     )
 
