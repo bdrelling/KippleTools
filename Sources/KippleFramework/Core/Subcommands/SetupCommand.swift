@@ -54,7 +54,7 @@ struct SetupCommand: ParsableCommand, VerboseLogging {
             try FileManager.default.copyItem(at: resourceURL, to: destinationURL)
         }
 
-        self.log("\(gitHookCount) git hooks installed.", ignoresVerbose: true)
+        self.log("\(gitHookCount) git hook(s) installed.", ignoresVerbose: true)
     }
 
     private func gitHooksDirectoryURL() throws -> URL {
