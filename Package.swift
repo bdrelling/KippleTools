@@ -58,13 +58,3 @@ let package = Package(
         ),
     ]
 )
-
-#if canImport(PackageConfig)
-    import PackageConfig
-
-    let config = PackageConfiguration([
-        "komondor": [
-            "pre-commit": ["echo hello world"], //"swift run kipple format"],
-        ],
-    ])
-#endif
