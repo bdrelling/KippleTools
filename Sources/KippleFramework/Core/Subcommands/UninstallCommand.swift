@@ -5,18 +5,18 @@ import Foundation
 import KippleToolsCore
 
 // swiftformat:options --varattributes prev-line
-public struct UninstallCommand: ParsableCommand {
-    public static let configuration: CommandConfiguration = .init(
+struct UninstallCommand: ParsableCommand, VerboseLogging {
+    static let configuration: CommandConfiguration = .init(
         commandName: "uninstall",
         abstract: "Uninstalls the kipple tool globally."
     )
 
     @Flag(name: .customLong("verbose"), help: "Whether or not to print debugging information.")
-    private var isVerbose: Bool = false
+    var isVerbose: Bool = false
 
-    public init() {}
+    init() {}
 
-    public mutating func run() throws {
+    mutating func run() throws {
         // Define our user's local bin directory.
         let localBinDirectory = "~/.local/bin"
 
@@ -36,13 +36,5 @@ public struct UninstallCommand: ParsableCommand {
         self.log(output)
 
         self.log("kipple successfully uninstalled from '\(localBinDirectory)'.", ignoresVerbose: true)
-    }
-
-    private func log(_ message: String, ignoresVerbose: Bool = false) {
-        guard ignoresVerbose || self.isVerbose else {
-            return
-        }
-
-        print(message)
     }
 }

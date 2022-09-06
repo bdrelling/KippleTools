@@ -5,7 +5,7 @@ import XCTest
 
 final class ResourceTests: XCTestCase {
     func testEmptyPathReturnsDefault() throws {
-        let path = try FileFormatter.pathForConfigurationFile()
+        let path = try FileFormatter.shared.pathForConfigurationFile()
 
         // We don't want to use an absolute path here, but evaluating that a suffix exists is plenty
         // because it wouldn't have returned a path if the default file didn't exist.
@@ -13,7 +13,7 @@ final class ResourceTests: XCTestCase {
     }
 
     func testDefaultFileNameReturnsDefault() throws {
-        let path = try FileFormatter.pathForConfigurationFile("default.swiftformat")
+        let path = try FileFormatter.shared.pathForConfigurationFile("default.swiftformat")
 
         // We don't want to use an absolute path here, but evaluating that a suffix exists is plenty
         // because it wouldn't have returned a path if the default file didn't exist.
@@ -21,7 +21,7 @@ final class ResourceTests: XCTestCase {
     }
 
     func testDefaultFileExtensionOnlyReturnsDefault() throws {
-        let path = try FileFormatter.pathForConfigurationFile(".swiftformat")
+        let path = try FileFormatter.shared.pathForConfigurationFile(".swiftformat")
 
         // We don't want to use an absolute path here, but evaluating that a suffix exists is plenty
         // because it wouldn't have returned a path if the default file didn't exist.
@@ -29,7 +29,7 @@ final class ResourceTests: XCTestCase {
     }
 
     func testNonExistentFilesThrowError() throws {
-        XCTAssertThrowsError(try FileFormatter.pathForConfigurationFile("does_not_exist.swiftformat"))
-        XCTAssertThrowsError(try FileFormatter.pathForConfigurationFile("whatever.txt"))
+        XCTAssertThrowsError(try FileFormatter.shared.pathForConfigurationFile("does_not_exist.swiftformat"))
+        XCTAssertThrowsError(try FileFormatter.shared.pathForConfigurationFile("whatever.txt"))
     }
 }

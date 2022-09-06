@@ -5,18 +5,18 @@ import Foundation
 import KippleToolsCore
 
 // swiftformat:options --varattributes prev-line
-public struct SetupCommand: ParsableCommand {
-    public static let configuration: CommandConfiguration = .init(
+struct SetupCommand: ParsableCommand, VerboseLogging {
+    static let configuration: CommandConfiguration = .init(
         commandName: "setup",
         abstract: "Sets up a project by installing git hooks and performing other setup actions."
     )
 
     @Flag(name: .customLong("verbose"), help: "Whether or not to print debugging information.")
-    private var isVerbose: Bool = false
+    var isVerbose: Bool = false
 
-    public init() {}
+    init() {}
 
-    public mutating func run() throws {
+    mutating func run() throws {
         // Install all available git hooks.
         try self.installGitHooks()
     }
@@ -68,14 +68,6 @@ public struct SetupCommand: ParsableCommand {
         }
 
         return directoryURL.appendingPathComponent("hooks")
-    }
-
-    private func log(_ message: String) {
-        guard self.isVerbose else {
-            return
-        }
-
-        print(message)
     }
 }
 

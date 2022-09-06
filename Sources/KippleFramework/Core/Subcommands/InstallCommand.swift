@@ -5,21 +5,21 @@ import Foundation
 import KippleToolsCore
 
 // swiftformat:options --varattributes prev-line
-public struct InstallCommand: ParsableCommand {
-    public static let configuration: CommandConfiguration = .init(
+struct InstallCommand: ParsableCommand, VerboseLogging {
+    static let configuration: CommandConfiguration = .init(
         commandName: "install",
         abstract: "Installs the kipple tool globally."
     )
 
     @Flag(name: .customLong("verbose"), help: "Whether or not to print debugging information.")
-    private var isVerbose: Bool = false
+    var isVerbose: Bool = false
 
     @Option(help: "The build configuration to use.")
     private var configuration: BuildConfiguration = .release
 
-    public init() {}
+    init() {}
 
-    public mutating func run() throws {
+    mutating func run() throws {
         // Define our user's local bin directory.
         let localBinDirectory = "~/.local/bin"
 
@@ -50,16 +50,8 @@ public struct InstallCommand: ParsableCommand {
 
         self.log(output)
 
-        self.log("kipple successfully installed to '\(localBinDirectory)'.", ignoreVerbose: true)
+        self.log("kipple successfully installed to '\(localBinDirectory)'.", ignoresVerbose: true)
         self.log("To run the command, '\(localBinDirectory)' must exist in your PATH.")
-    }
-
-    private func log(_ message: String, ignoreVerbose: Bool = false) {
-        guard ignoreVerbose || self.isVerbose else {
-            return
-        }
-
-        print(message)
     }
 }
 

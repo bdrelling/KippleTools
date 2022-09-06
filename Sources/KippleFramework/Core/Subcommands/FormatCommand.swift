@@ -2,10 +2,11 @@
 
 import ArgumentParser
 import Foundation
+import KippleToolsCore
 
 // swiftformat:options --varattributes prev-line
-public struct FormatCommand: ParsableCommand {
-    public static let configuration: CommandConfiguration = .init(
+struct FormatCommand: ParsableCommand, VerboseLogging {
+    static let configuration: CommandConfiguration = .init(
         commandName: "format",
         abstract: "Formatters Swift files."
     )
@@ -32,12 +33,12 @@ public struct FormatCommand: ParsableCommand {
     private var isQuiet: Bool = false
 
     @Flag(name: .customLong("verbose"), help: "Whether or not to print debugging information and verbose SwiftFormat output.")
-    private var isVerbose: Bool = false
+    var isVerbose: Bool = false
 
-    public init() {}
+    init() {}
 
-    public mutating func run() throws {
-        try FileFormatter.format(
+    mutating func run() throws {
+        try FileFormatter.shared.format(
             configurationFile: self.configurationFile,
             swiftVersion: self.swiftVersion,
             targets: self.targets,
@@ -45,7 +46,8 @@ public struct FormatCommand: ParsableCommand {
             shouldSkipCache: self.shouldSkipCache,
             isDryRun: self.isDryRun,
             isQuiet: self.isQuiet,
-            isVerbose: self.isVerbose
+            isVerbose: self.isVerbose,
+            logger: self
         )
     }
 }
