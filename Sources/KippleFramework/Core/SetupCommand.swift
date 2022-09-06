@@ -8,7 +8,7 @@ import KippleToolsCore
 public struct SetupCommand: ParsableCommand {
     public static let configuration: CommandConfiguration = .init(
         commandName: "setup",
-        abstract: "Sets up a project by installing git hooks and performing other setup actions.."
+        abstract: "Sets up a project by installing git hooks and performing other setup actions."
     )
 
     @Flag(name: .customLong("verbose"), help: "Whether or not to print debugging information.")
