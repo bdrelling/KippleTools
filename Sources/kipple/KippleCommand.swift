@@ -11,6 +11,7 @@ public struct KippleCommand: ParsableCommand {
         abstract: "A set of core utilities for use with Kipple projects.",
         subcommands: [
             FormatCommand.self,
+            SetupCommand.self,
         ]
     )
 

@@ -38,7 +38,6 @@ public final class FileFormatter {
         targets: [String] = ["."],
         shouldFormatStagedFilesOnly: Bool = false,
         shouldSkipCache: Bool = false,
-        isDebugging: Bool = false,
         isDryRun: Bool = false,
         isQuiet: Bool = false,
         isVerbose: Bool = false
@@ -63,18 +62,19 @@ public final class FileFormatter {
             }
         }()
 
-        if isDebugging {
+        if isVerbose {
             print("------------------------------------------------------------")
             print("DEBUG INFO")
             print("------------------------------------------------------------")
-            print("=> Swift Version:         \(swiftVersion)")
-            print("=> Working Directory:     \(workingDirectory)")
-            print("=> Configuration File:    \(configurationFilePath)")
-            print("=> Targets:               \(targets)")
-            print("=> Staged Files Only?:    \(shouldFormatStagedFilesOnly)")
-            print("=> Skip Cache?:           \(shouldSkipCache)")
-            print("=> Debugging?:            \(isDebugging)")
-            print("=> Dry Run?:              \(isDryRun)")
+            print("=> Swift Version:        \(swiftVersion)")
+            print("=> Working Directory:    \(workingDirectory)")
+            print("=> Configuration File:   \(configurationFilePath)")
+            print("=> Targets:              \(targets)")
+            print("=> Staged Files Only?:   \(shouldFormatStagedFilesOnly)")
+            print("=> Skip Cache?:          \(shouldSkipCache)")
+            print("=> Dry Run?:             \(isDryRun)")
+            print("=> Quiet?:               \(isQuiet)")
+            print("=> Verbose?:             \(isVerbose)")
 
             // Adjust printing of file paths for prettier output depending on count.
             if filesToFormat.count > 1 {
@@ -116,9 +116,7 @@ public final class FileFormatter {
 
         if isVerbose {
             arguments.append("--verbose")
-        }
 
-        if isDebugging {
             let command = "$ swift run swiftformat \(arguments.joined(separator: " "))"
 
             print("=> SwiftFormat Command:")

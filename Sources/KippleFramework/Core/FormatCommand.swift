@@ -25,16 +25,13 @@ public struct FormatCommand: ParsableCommand {
     @Flag(name: .customLong("skip-cache"), help: "Whether or not to skip SwiftFormat's caching step.")
     private var shouldSkipCache: Bool = false
 
-    @Flag(name: .customLong("debug"), help: "Whether or not to print debugging information.")
-    private var isDebugging: Bool = false
-
     @Flag(name: .customLong("dryrun"), help: "Whether or not to skip the formatting step.")
     private var isDryRun: Bool = false
 
     @Flag(name: .customLong("quiet"), help: "Whether or not to quiet the SwiftFormat output.")
     private var isQuiet: Bool = false
 
-    @Flag(name: .customLong("verbose"), help: "Whether or not to produce verbose SwiftFormat output.")
+    @Flag(name: .customLong("verbose"), help: "Whether or not to print debugging information and verbose SwiftFormat output.")
     private var isVerbose: Bool = false
 
     public init() {}
@@ -46,7 +43,6 @@ public struct FormatCommand: ParsableCommand {
             targets: self.targets,
             shouldFormatStagedFilesOnly: self.shouldFormatStagedFilesOnly,
             shouldSkipCache: self.shouldSkipCache,
-            isDebugging: self.isDebugging,
             isDryRun: self.isDryRun,
             isQuiet: self.isQuiet,
             isVerbose: self.isVerbose

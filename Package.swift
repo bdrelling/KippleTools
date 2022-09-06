@@ -14,7 +14,6 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", from: "1.1.4"),
         .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.49.17"),
-        .package(url: "https://github.com/shibapm/Komondor", from: "1.0.0"),
     ],
     targets: [
         // Executable Targets
