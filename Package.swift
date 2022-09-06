@@ -14,18 +14,19 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", from: "1.1.4"),
         .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.49.17"),
+        .package(url: "https://github.com/shibapm/Komondor", from: "1.0.0"),
     ],
     targets: [
         // Executable Targets
         .executableTarget(
             name: "kipple",
             dependencies: [
-                .target(name: "KippleFormat"),
+                .target(name: "KippleFramework"),
             ]
         ),
         // Product Targets
         .target(
-            name: "KippleFormat",
+            name: "KippleFramework",
             dependencies: [
                 .target(name: "KippleToolsCore"),
                 .product(name: "SwiftFormat", package: "SwiftFormat"),
@@ -45,9 +46,9 @@ let package = Package(
         ),
         // Test Targets
         .testTarget(
-            name: "KippleFormatTests",
+            name: "KippleFrameworkTests",
             dependencies: [
-                .target(name: "KippleFormat"),
+                .target(name: "KippleFramework"),
             ]
         ),
         .testTarget(
@@ -58,3 +59,13 @@ let package = Package(
         ),
     ]
 )
+
+#if canImport(PackageConfig)
+    import PackageConfig
+
+    let config = PackageConfiguration([
+        "komondor": [
+            "pre-commit": ["echo hello world"], //"swift run kipple format"],
+        ],
+    ])
+#endif

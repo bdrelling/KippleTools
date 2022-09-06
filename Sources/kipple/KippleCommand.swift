@@ -2,15 +2,17 @@
 
 import ArgumentParser
 import Foundation
-import KippleFormat
+import KippleFramework
 
 @main
-struct KippleCommand: ParsableCommand {
-    static let configuration: CommandConfiguration = .init(
+public struct KippleCommand: ParsableCommand {
+    public static let configuration: CommandConfiguration = .init(
         commandName: "kipple",
         abstract: "A set of core utilities for use with Kipple projects.",
         subcommands: [
             FormatCommand.self,
         ]
     )
+
+    public init() {}
 }

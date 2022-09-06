@@ -1,6 +1,6 @@
 // Copyright © 2022 Brian Drelling. All rights reserved.
 
-@testable import KippleFormat
+@testable import KippleFramework
 import XCTest
 
 final class ResourceTests: XCTestCase {
