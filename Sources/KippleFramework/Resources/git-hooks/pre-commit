@@ -1,5 +1,15 @@
 #!/bin/bash
 
-# Run the kipple-format command, telling it to detect and use modified files only.
+# Build the kipple-format command, telling it to detect and use modified files only.
 # Once the command is complete, modified files are added back to the commit.
-swift run kipple format --staged-only --quiet
+command='kipple format --staged-only --quiet'
+
+if [ -z $(which kipple) ]; then
+    # kipple is not installed, so prepend "swift run" to the beginning of the command.
+    command="swift run ${command}"
+    # Echo a warning to the user.
+    echo 'Kipple not installed. To speed up your pre-commit hook, run 'swift run kipple install' from a KippleTools-enabled repository.'
+fi
+
+# Run the command
+eval "$command"
