@@ -15,4 +15,4 @@ jobs:
     with:
       scheme: KippleTools-Package
       platforms: macOS Linux
-      swift-versions: 5.5 5.6
+      swift-versions: 5.5 5.6 5.7
