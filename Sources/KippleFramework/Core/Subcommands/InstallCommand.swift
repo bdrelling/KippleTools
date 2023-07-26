@@ -69,7 +69,7 @@ struct InstallCommand: ParsableCommand, VerboseLogging {
             self.log("kipple successfully installed to '\(localBinDirectory)'.", ignoresVerbose: true)
             self.log("To run the command, ensure '\(localBinDirectory)' exists in your PATH.", ignoresVerbose: true)
         } else {
-            self.log("kipple could not be installed. Executable not found.", ignoresVerbose: true)
+            self.log("kipple could not be installed. Executable not found at '\(executablePath)'.", ignoresVerbose: true)
         }
     }
 }
