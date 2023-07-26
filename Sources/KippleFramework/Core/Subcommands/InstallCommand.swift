@@ -33,25 +33,44 @@ struct InstallCommand: ParsableCommand, VerboseLogging {
 
         // Create our command, which does the following:
         // 1. Builds the tool.
-        // 2. Ensures our user's local bin directory exists.
-        // 3. Copies the built binary to the bin directory.
-        let command = """
-        swift build -c \(configuration)
-        mkdir -p \(localBinDirectory)
-        cp -f ./.build/\(configuration)/\(commandName) \(localBinDirectory)/\(commandName)
-        """
-
+        let buildCommand = "swift build -c \(configuration)"
+        
         self.log("-- Command -------------------------------------------------")
-        self.log(command)
+        self.log(buildCommand)
         self.log("------------------------------------------------------------")
 
         // Run our command and get output.
-        let output = try ConfiguredProcess.bash(command: command).run()
+        let buildOutput = try ConfiguredProcess.bash(command: buildCommand).run()
+        self.log(buildOutput)
+        
+        // Get the path to the executable.
+        let executablePath = "./.build/\(configuration)/\(commandName)"
+        
+        // Ensure the executable exists before we proceed to the copying step.
+        let isBuilt = FileManager.default.fileExists(atPath: executablePath)
+        
+        if isBuilt {
+            // Create our command, which does the following:
+            // 1. Ensures our user's local bin directory exists.
+            // 2. Copies the built binary to the bin directory.
+            let copyCommand = """
+            mkdir -p \(localBinDirectory)
+            cp -f \(executablePath) \(localBinDirectory)/\(commandName)
+            """
+            
+            self.log("-- Command -------------------------------------------------")
+            self.log(copyCommand)
+            self.log("------------------------------------------------------------")
 
-        self.log(output)
+            // Run our command and get output.
+            let copyOutput = try ConfiguredProcess.bash(command: copyCommand).run()
+            self.log(copyOutput)
 
-        self.log("kipple successfully installed to '\(localBinDirectory)'.", ignoresVerbose: true)
-        self.log("To run the command, '\(localBinDirectory)' must exist in your PATH.")
+            self.log("kipple successfully installed to '\(localBinDirectory)'.", ignoresVerbose: true)
+            self.log("To run the command, ensure '\(localBinDirectory)' exists in your PATH.", ignoresVerbose: true)
+        } else {
+            self.log("kipple could not be installed. Executable not found.", ignoresVerbose: true)
+        }
     }
 }
 
