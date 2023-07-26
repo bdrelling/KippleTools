@@ -1,4 +1,4 @@
-// Copyright © 2022 Brian Drelling. All rights reserved.
+// Copyright © 2023 Brian Drelling. All rights reserved.
 
 import ArgumentParser
 import Foundation
@@ -34,7 +34,7 @@ struct InstallCommand: ParsableCommand, VerboseLogging {
         // Create our command, which does the following:
         // 1. Builds the tool.
         let buildCommand = "swift build -c \(configuration)"
-        
+
         self.log("-- Command -------------------------------------------------")
         self.log(buildCommand)
         self.log("------------------------------------------------------------")
@@ -42,13 +42,13 @@ struct InstallCommand: ParsableCommand, VerboseLogging {
         // Run our command and get output.
         let buildOutput = try ConfiguredProcess.bash(command: buildCommand).run()
         self.log(buildOutput)
-        
+
         // Get the path to the executable.
         let executablePath = "./.build/\(configuration)/\(commandName)"
-        
+
         // Ensure the executable exists before we proceed to the copying step.
         let isBuilt = FileManager.default.fileExists(atPath: executablePath)
-        
+
         if isBuilt {
             // Create our command, which does the following:
             // 1. Ensures our user's local bin directory exists.
@@ -57,7 +57,7 @@ struct InstallCommand: ParsableCommand, VerboseLogging {
             mkdir -p \(localBinDirectory)
             cp -f \(executablePath) \(localBinDirectory)/\(commandName)
             """
-            
+
             self.log("-- Command -------------------------------------------------")
             self.log(copyCommand)
             self.log("------------------------------------------------------------")
