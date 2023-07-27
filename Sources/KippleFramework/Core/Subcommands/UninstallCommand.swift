@@ -8,7 +8,7 @@ import KippleToolsCore
 struct UninstallCommand: ParsableCommand, VerboseLogging {
     static let configuration: CommandConfiguration = .init(
         commandName: "uninstall",
-        abstract: "Uninstalls the kipple tool globally."
+        abstract: "Uninstalls this executable by removing it from the user's local bin directory."
     )
 
     @Flag(name: .customLong("verbose"), help: "Whether or not to print debugging information.")
@@ -21,7 +21,7 @@ struct UninstallCommand: ParsableCommand, VerboseLogging {
         let localBinDirectory = "~/.local/bin"
 
         // Define our command name.
-        let commandName = "kipple"
+        let commandName = MainCommand.commandName
 
         // Create our command, which simply deletes the binary from the local bin directory.
         let command = "rm \(localBinDirectory)/\(commandName)"
@@ -35,6 +35,6 @@ struct UninstallCommand: ParsableCommand, VerboseLogging {
 
         self.log(output)
 
-        self.log("kipple successfully uninstalled from '\(localBinDirectory)'.", ignoresVerbose: true)
+        self.log("\(commandName) successfully uninstalled from '\(localBinDirectory)'.", ignoresVerbose: true)
     }
 }

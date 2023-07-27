@@ -3,9 +3,11 @@
 import ArgumentParser
 import Foundation
 
-public struct KippleCommand: ParsableCommand {
+public struct MainCommand: ParsableCommand {
+    public static let commandName = "kipple"
+    
     public static let configuration: CommandConfiguration = .init(
-        commandName: "kipple",
+        commandName: Self.commandName,
         abstract: "A set of core utilities for use with Kipple projects.",
         subcommands: [
             FormatCommand.self,

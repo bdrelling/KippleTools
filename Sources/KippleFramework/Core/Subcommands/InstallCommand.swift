@@ -8,7 +8,7 @@ import KippleToolsCore
 struct InstallCommand: ParsableCommand, VerboseLogging {
     static let configuration: CommandConfiguration = .init(
         commandName: "install",
-        abstract: "Installs the kipple tool globally."
+        abstract: "Installs this executable into the user's local bin directory."
     )
 
     @Flag(name: .customLong("verbose"), help: "Whether or not to print debugging information.")
@@ -24,7 +24,7 @@ struct InstallCommand: ParsableCommand, VerboseLogging {
         let localBinDirectory = "~/.local/bin"
 
         // Define our command name.
-        let commandName = "kipple"
+        let commandName = MainCommand.commandName
 
         // Define our build configuration.
         let configuration = self.configuration.rawValue
@@ -66,10 +66,10 @@ struct InstallCommand: ParsableCommand, VerboseLogging {
             let copyOutput = try ConfiguredProcess.bash(command: copyCommand).run()
             self.log(copyOutput)
 
-            self.log("kipple successfully installed to '\(localBinDirectory)'.", ignoresVerbose: true)
+            self.log("\(commandName) successfully installed to '\(localBinDirectory)'.", ignoresVerbose: true)
             self.log("To run the command, ensure '\(localBinDirectory)' exists in your PATH.", ignoresVerbose: true)
         } else {
-            self.log("kipple could not be installed. Executable not found at '\(executablePath)'.", ignoresVerbose: true)
+            self.log("\(commandName) could not be installed. Executable not found at '\(executablePath)'.", ignoresVerbose: true)
         }
     }
 }
