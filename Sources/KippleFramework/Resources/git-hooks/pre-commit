@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# TODO: Find a way to inject this command name.
 command_name='kipple'
 
 # Build the format command, telling it to detect and use modified files only.
