@@ -4,7 +4,7 @@
 # - https://raw.githubusercontent.com/github/gitignore/main/Swift.gitignore
 # - https://github.com/vapor/vapor/blob/main/.gitignore
 
-## OS X Folder Attributes
+## macOS Folder Attributes
 .DS_Store
 
 ## Obj-C/Swift Specific
