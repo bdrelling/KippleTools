@@ -12,8 +12,8 @@ let package = Package(
         .library(name: "KippleToolsCore", targets: ["KippleToolsCore"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-argument-parser", from: "1.1.4"),
-        .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.49.17"),
+        .package(url: "https://github.com/apple/swift-argument-parser", from: "1.2.2"),
+        .package(url: "https://github.com/nicklockwood/SwiftFormat", .upToNextMinor(from: "0.51.13")),
     ],
     targets: [
         // Executable Targets
@@ -38,9 +38,6 @@ let package = Package(
             name: "KippleToolsCore",
             dependencies: [
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
-            ],
-            resources: [
-                .process("Resources"),
             ]
         ),
         // Test Targets
