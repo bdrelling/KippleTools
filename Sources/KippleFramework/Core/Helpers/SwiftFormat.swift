@@ -1,4 +1,4 @@
-// Copyright © 2022 Brian Drelling. All rights reserved.
+// Copyright © 2023 Brian Drelling. All rights reserved.
 
 import Foundation
 import SwiftFormat
@@ -28,13 +28,13 @@ final class SwiftFormat {
         self.printQueue.sync {
             switch type {
             case .info:
-                Swift.print(message, to: &stderr)
+                Swift.print(message, to: &self.stderr)
             case .success:
-                Swift.print(stderrIsTTY ? message.inGreen : message, to: &stderr)
+                Swift.print(self.stderrIsTTY ? message.inGreen : message, to: &self.stderr)
             case .error:
-                Swift.print(stderrIsTTY ? message.inRed : message, to: &stderr)
+                Swift.print(self.stderrIsTTY ? message.inRed : message, to: &self.stderr)
             case .warning:
-                Swift.print(stderrIsTTY ? message.inYellow : message, to: &stderr)
+                Swift.print(self.stderrIsTTY ? message.inYellow : message, to: &self.stderr)
             case .content:
                 Swift.print(message)
             case .raw:
