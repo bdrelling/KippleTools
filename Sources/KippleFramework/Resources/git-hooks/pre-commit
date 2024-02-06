@@ -16,3 +16,7 @@ fi
 
 # Run the command
 eval "$command"
+
+# Wait for the jobs to finish.
+# Source: https://linuxize.com/post/bash-wait/
+wait
