@@ -1,19 +1,19 @@
-// swift-tools-version: 5.5
+// swift-tools-version: 5.7
 
 import PackageDescription
 
 let package = Package(
     name: "KippleTools",
     platforms: [
-        .macOS(.v10_15),
+        .macOS(.v13),
     ],
     products: [
         .executable(name: "kipple", targets: ["kipple"]),
         .library(name: "KippleToolsCore", targets: ["KippleToolsCore"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-argument-parser", from: "1.2.2"),
-        .package(url: "https://github.com/nicklockwood/SwiftFormat", .upToNextMinor(from: "0.51.13")),
+        .package(url: "https://github.com/apple/swift-argument-parser", from: "1.3.0"),
+        .package(url: "https://github.com/nicklockwood/SwiftFormat", .upToNextMinor(from: "0.53.2")),
     ],
     targets: [
         // Executable Targets
