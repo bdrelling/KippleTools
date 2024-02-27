@@ -1,4 +1,4 @@
-// Copyright © 2023 Brian Drelling. All rights reserved.
+// Copyright © 2024 Brian Drelling. All rights reserved.
 
 /// A simplified logger that facilitates printing to the console.
 /// If our needs become more complex, we should integrate `swift-log` instead.
