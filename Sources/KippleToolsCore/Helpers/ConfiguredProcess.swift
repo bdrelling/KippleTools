@@ -39,11 +39,7 @@ public struct ConfiguredProcess {
         let outputData: Data
 
         // Read the stdout, and stderr data.
-        if #available(macOS 10.15.4, *) {
-            outputData = try self.outputPipe.fileHandleForReading.readToEnd() ?? Data()
-        } else {
-            outputData = self.outputPipe.fileHandleForReading.readDataToEndOfFile()
-        }
+        outputData = try self.outputPipe.fileHandleForReading.readToEnd() ?? Data()
 
         // Convert data to strings.
         let output = String(data: outputData, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines)
