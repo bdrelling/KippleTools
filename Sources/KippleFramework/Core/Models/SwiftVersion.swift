@@ -1,3 +1,5 @@
+// Copyright © 2024 Brian Drelling. All rights reserved.
+
 import ArgumentParser
 
 enum SwiftVersion: Double, CaseIterable, ExpressibleByArgument {
@@ -13,11 +15,11 @@ enum SwiftVersion: Double, CaseIterable, ExpressibleByArgument {
 extension SwiftVersion {
     // TODO: Delete -- this would likely just cause issues.
     // static let latest: Self = .allCases.last ?? .v5_9
-    
+
     static let current: Self = {
         #if swift(>=6)
         print("WARNING: Swift 6 is not yet supported by KippleTools; please use with caution.")
-        .v6
+            .v6
         #elseif swift(>=5.10)
         .v5_10
         #elseif swift(>=5.9)

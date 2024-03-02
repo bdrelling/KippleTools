@@ -1,9 +1,12 @@
+// Copyright © 2024 Brian Drelling. All rights reserved.
+
 import Foundation
+@_implementationOnly import ShellOut
 
 public struct Shell {
     private let executablePath: String
     private let outputPipe: Pipe
-    
+
     private init(
         executablePath: String,
         outputPipe: Pipe = .init()
@@ -11,21 +14,43 @@ public struct Shell {
         self.executablePath = executablePath
         self.outputPipe = outputPipe
     }
-    
+
     @discardableResult
     public func callAsFunction(
         _ command: String,
+        arguments: [String] = [],
         environment: [String: String]? = nil,
-        workingDirectory: String? = nil
+        at workingDirectory: String? = nil,
+        outputHandle: FileHandle? = nil,
+        errorHandle: FileHandle? = nil
     ) throws -> String {
         let process = Process(
             executablePath: self.executablePath,
-            arguments: ["-c", command],
+            command: command,
+            arguments: arguments,
             environment: environment,
-            workingDirectory: workingDirectory
+            at: workingDirectory
         )
-        
-        return try process.run(outputPipe: self.outputPipe)
+
+        return try process.execute(outputHandle: outputHandle, errorHandle: errorHandle)
+    }
+
+    @discardableResult
+    public func callAsFunction(
+        _ command: ShellCommand,
+        environment: [String: String]? = nil,
+        at workingDirectory: String? = nil,
+        outputHandle: FileHandle? = nil,
+        errorHandle: FileHandle? = nil
+    ) throws -> String {
+        try self.callAsFunction(
+            command.command,
+            arguments: command.arguments,
+            environment: environment,
+            at: workingDirectory,
+            outputHandle: outputHandle,
+            errorHandle: errorHandle
+        )
     }
 }
 
@@ -33,7 +58,7 @@ public struct Shell {
 
 public extension Shell {
     static let `default`: Self = .bash
-    
+
     static let sh: Self = .init(executablePath: "/bin/sh")
     static let bash: Self = .init(executablePath: "/bin/bash")
     static let zsh: Self = .init(executablePath: "/bin/zsh")

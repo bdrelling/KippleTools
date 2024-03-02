@@ -1,3 +1,5 @@
+// Copyright © 2024 Brian Drelling. All rights reserved.
+
 import ArgumentParser
 
 enum Platform: String, CaseIterable, ExpressibleByArgument {

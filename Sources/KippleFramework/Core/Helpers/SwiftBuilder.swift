@@ -1,12 +1,14 @@
+// Copyright © 2024 Brian Drelling. All rights reserved.
+
 import KippleToolsCore
 
 final class SwiftBuilder {
     // MARK: Shared Instance
 
     static let shared = SwiftBuilder()
-    
+
     // MARK: Properties
-    
+
     private let sh: Shell = .bash
 
     // MARK: Initializers
@@ -24,15 +26,14 @@ final class SwiftBuilder {
         logger: VerboseLogging
     ) throws -> String {
         let version = SwiftVersion.current
-        
+
         print(version)
-        
+
 //        print(version)
-        
-        
+
         return ""
     }
-    
+
     func buildAndExecute(
         subcommand: ToolSubcommand,
         platforms: [Platform],
@@ -41,7 +42,7 @@ final class SwiftBuilder {
         isVerbose: Bool = false,
         logger: VerboseLogging
     ) throws {
-        let _ = try self.build(
+        _ = try self.build(
             subcommand: subcommand,
             platforms: platforms,
             versions: versions,

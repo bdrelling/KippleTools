@@ -160,6 +160,7 @@ final class FileFormatter {
         } else {
             // Since config was provided and there is no path or template, return an error.
             throw FormatError.configurationFileNotFound(configurationFile)
+            
         }
     }
 
