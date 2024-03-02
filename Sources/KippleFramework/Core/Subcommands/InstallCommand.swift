@@ -6,10 +6,14 @@ import KippleToolsCore
 
 // swiftformat:options --varattributes prev-line
 struct InstallCommand: ParsableCommand, VerboseLogging {
+    // MARK: Configuration
+    
     static let configuration: CommandConfiguration = .init(
         commandName: "install",
         abstract: "Installs this executable into the user's local bin directory."
     )
+    
+    // MARK: Arguments
 
     @Flag(name: .customLong("verbose"), help: "Whether or not to print debugging information.")
     var isVerbose: Bool = false
@@ -17,7 +21,11 @@ struct InstallCommand: ParsableCommand, VerboseLogging {
     @Option(help: "The build configuration to use.")
     private var configuration: BuildConfiguration = .release
 
+    // MARK: Initializers
+    
     init() {}
+    
+    // MARK: Methods
 
     mutating func run() throws {
         // Define our user's local bin directory.
@@ -40,7 +48,7 @@ struct InstallCommand: ParsableCommand, VerboseLogging {
         self.log("------------------------------------------------------------")
 
         // Run our command and get output.
-        let buildOutput = try ConfiguredProcess.bash(command: buildCommand).run()
+        let buildOutput = try Shell.bash(buildCommand)
         self.log(buildOutput)
 
         // Get the path to the executable.
@@ -63,7 +71,7 @@ struct InstallCommand: ParsableCommand, VerboseLogging {
             self.log("------------------------------------------------------------")
 
             // Run our command and get output.
-            let copyOutput = try ConfiguredProcess.bash(command: copyCommand).run()
+            let copyOutput = try Shell.bash(copyCommand)
             self.log(copyOutput)
 
             self.log("\(commandName) successfully installed to '\(localBinDirectory)'.", ignoresVerbose: true)

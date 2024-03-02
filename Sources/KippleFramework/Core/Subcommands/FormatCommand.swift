@@ -6,10 +6,14 @@ import KippleToolsCore
 
 // swiftformat:options --varattributes prev-line
 struct FormatCommand: ParsableCommand, VerboseLogging {
+    // MARK: Configuration
+    
     static let configuration: CommandConfiguration = .init(
         commandName: "format",
-        abstract: "Formatters Swift files."
+        abstract: "Formats Swift files."
     )
+    
+    // MARK: Arguments
 
     @Option(name: .customLong("config"), help: "The SwiftFormat configuration file path or template to use. (default: \".swiftformat\")")
     private var configurationFile: String = ".swiftformat"
@@ -17,7 +21,7 @@ struct FormatCommand: ParsableCommand, VerboseLogging {
     @Option(name: .long, help: "The Swift version to format.")
     private var swiftVersion: String?
 
-    @Option(name: .long, help: "The list of targets. (default: [\".\"]")
+    @Option(name: .long, help: "The list of targets. (default: [\".\"])")
     private var targets: [String] = ["."]
 
     @Flag(name: .customLong("staged-only"), help: "Whether or not to format staged files only.")
@@ -34,8 +38,12 @@ struct FormatCommand: ParsableCommand, VerboseLogging {
 
     @Flag(name: .customLong("verbose"), help: "Whether or not to print debugging information and verbose SwiftFormat output.")
     var isVerbose: Bool = false
+    
+    // MARK: Initializers
 
     init() {}
+    
+    // MARK: Methods
 
     mutating func run() throws {
         try FileFormatter.shared.format(

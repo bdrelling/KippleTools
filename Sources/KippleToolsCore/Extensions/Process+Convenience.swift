@@ -1,45 +1,42 @@
-// Copyright © 2024 Brian Drelling. All rights reserved.
-
 import Foundation
 
-public struct ConfiguredProcess {
-    private let process = Process()
-    private let outputPipe = Pipe()
-
-    public init(
+public extension Process {
+    convenience init (
         executablePath: String,
         arguments: [String]? = nil,
         environment: [String: String]? = nil,
         workingDirectory: String? = nil
     ) {
+        self.init()
+        
         // Set the executable path for the process.
-        self.process.executableURL = URL(fileURLWithPath: executablePath)
+        self.executableURL = URL(fileURLWithPath: executablePath)
 
         // Set arguments for the process.
-        self.process.arguments = arguments
+        self.arguments = arguments
 
         // Load environment variables into the process.
-        self.process.environment = environment
+        self.environment = environment
 
         // Set the working directory for the process.
         if let workingDirectory = workingDirectory {
-            self.process.currentDirectoryURL = URL(fileURLWithPath: workingDirectory, isDirectory: true)
+            self.currentDirectoryURL = URL(fileURLWithPath: workingDirectory, isDirectory: true)
         }
-
-        // Set the pipe for stdout
-        self.process.standardOutput = self.outputPipe
     }
-
+    
     @discardableResult
-    public func run() throws -> String {
+    func run(outputPipe: Pipe) throws -> String {
+        // Set the pipe for stdout
+        self.standardOutput = outputPipe
+        
         // Run the process.
-        try self.process.run()
+        try self.run()
 
         // Create variables for our stdout and stderr data.
         let outputData: Data
 
         // Read the stdout, and stderr data.
-        outputData = try self.outputPipe.fileHandleForReading.readToEnd() ?? Data()
+        outputData = try outputPipe.fileHandleForReading.readToEnd() ?? Data()
 
         // Convert data to strings.
         let output = String(data: outputData, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -56,23 +53,12 @@ public struct ConfiguredProcess {
 
 // MARK: - Supporting Types
 
-enum ProcessError: Error {
+public enum ProcessError: LocalizedError {
     case outputNotFound
-}
-
-// MARK: - Convenience
-
-public extension ConfiguredProcess {
-    static func bash(
-        command: String,
-        environment: [String: String]? = nil,
-        workingDirectory: String? = nil
-    ) -> ConfiguredProcess {
-        .init(
-            executablePath: "/bin/bash",
-            arguments: ["-c", command],
-            environment: environment,
-            workingDirectory: workingDirectory
-        )
+    
+    public var errorDescription: String? {
+        switch self {
+        case .outputNotFound: "Process output not found."
+        }
     }
 }

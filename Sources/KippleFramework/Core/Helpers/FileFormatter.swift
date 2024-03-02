@@ -163,9 +163,12 @@ final class FileFormatter {
         }
     }
 
+    // TODO: Look into references, see if you can optimize?
+    // References:
+    //   - https://github.com/shibapm/Komondor/blob/3734b0e8b62cc9a59c487eb0796905c441bf9c10/Sources/Komondor/Commands/runner.swift#L65C1-L74C2
     private func stagedFilePaths() throws -> [String] {
         let command = "git diff --diff-filter=d --staged --name-only"
-        let output = try ConfiguredProcess.bash(command: command).run()
+        let output = try Shell.bash(command)
 
         return output
             // Split on newline.
@@ -179,8 +182,8 @@ final class FileFormatter {
     private func addFilesToCommit(files: [String]) throws {
         let commands = files.map { "git add \($0)" }
         let combinedCommand = commands.joined(separator: " && ")
-
-        try ConfiguredProcess.bash(command: combinedCommand).run()
+        
+        try Shell.bash(combinedCommand)
     }
 }
 

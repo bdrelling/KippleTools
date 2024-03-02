@@ -6,15 +6,23 @@ import KippleToolsCore
 
 // swiftformat:options --varattributes prev-line
 struct SetupCommand: ParsableCommand, VerboseLogging {
+    // MARK: Configuration
+    
     static let configuration: CommandConfiguration = .init(
         commandName: "setup",
         abstract: "Sets up a project by installing git hooks and performing other setup actions."
     )
+    
+    // MARK: Arguments
 
     @Flag(name: .customLong("verbose"), help: "Whether or not to print debugging information.")
     var isVerbose: Bool = false
+    
+    // MARK: Initializers
 
     init() {}
+    
+    // MARK: Methods
 
     mutating func run() throws {
         // Install all available git hooks.
@@ -59,7 +67,7 @@ struct SetupCommand: ParsableCommand, VerboseLogging {
 
     private func gitHooksDirectoryURL() throws -> URL {
         let command = "git rev-parse --git-dir"
-        let output = try ConfiguredProcess.bash(command: command).run()
+        let output = try Shell.bash(command)
         let directoryURL = URL(fileURLWithPath: output, isDirectory: true)
 
         // Ensure our last path component is ".git".
