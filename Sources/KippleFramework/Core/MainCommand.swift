@@ -15,12 +15,12 @@ public struct MainCommand: ParsableCommand {
         commandName: Self.commandName,
         abstract: "A set of core utilities for use with Swift projects.",
         subcommands: [
-            FormatCommand.self,
-            InstallCommand.self,
             SetupCommand.self,
+            InstallCommand.self,
             UninstallCommand.self,
-            BuildCommand.self,
-            TestCommand.self,
+            FormatCommand.self,
+            // BuildCommand.self,
+            // TestCommand.self,
         ]
     )
 
