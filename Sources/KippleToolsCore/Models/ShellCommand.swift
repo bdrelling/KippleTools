@@ -50,53 +50,53 @@ public extension ShellCommand {
     }
 
 //    /// Move a file from one path to another
-//    static func moveFile(from originPath: String, to targetPath: String) -> ShellOutCommand {
+//    static func moveFile(from originPath: String, to targetPath: String) -> Self {
 //        let command = "mv".appending(argument: originPath)
 //            .appending(argument: targetPath)
 //
-//        return ShellOutCommand(string: command)
+//        return .init(command)
 //    }
 //
 //    /// Copy a file from one path to another
-//    static func copyFile(from originPath: String, to targetPath: String) -> ShellOutCommand {
+//    static func copyFile(from originPath: String, to targetPath: String) -> Self {
 //        let command = "cp".appending(argument: originPath)
 //            .appending(argument: targetPath)
 //
-//        return ShellOutCommand(string: command)
+//        return .init(command)
 //    }
 //
 //    /// Remove a file
-//    static func removeFile(from path: String, arguments: [String] = ["-f"]) -> ShellOutCommand {
+//    static func removeFile(from path: String, arguments: [String] = ["-f"]) -> Self {
 //        let command = "rm".appending(arguments: arguments)
 //            .appending(argument: path)
 //
-//        return ShellOutCommand(string: command)
+//        return .init(command)
 //    }
 //
 //    /// Open a file using its designated application
-//    static func openFile(at path: String) -> ShellOutCommand {
+//    static func openFile(at path: String) -> Self {
 //        let command = "open".appending(argument: path)
-//        return ShellOutCommand(string: command)
+//        return .init(command)
 //    }
 //
 //    /// Read a file as a string
-//    static func readFile(at path: String) -> ShellOutCommand {
+//    static func readFile(at path: String) -> Self {
 //        let command = "cat".appending(argument: path)
-//        return ShellOutCommand(string: command)
+//        return .init(command)
 //    }
 //
 //    /// Create a symlink at a given path, to a given target
-//    static func createSymlink(to targetPath: String, at linkPath: String) -> ShellOutCommand {
+//    static func createSymlink(to targetPath: String, at linkPath: String) -> Self {
 //        let command = "ln -s".appending(argument: targetPath)
 //            .appending(argument: linkPath)
 //
-//        return ShellOutCommand(string: command)
+//        return .init(command)
 //    }
 //
 //    /// Expand a symlink at a given path, returning its target path
-//    static func expandSymlink(at path: String) -> ShellOutCommand {
+//    static func expandSymlink(at path: String) -> Self {
 //        let command = "readlink".appending(argument: path)
-//        return ShellOutCommand(string: command)
+//        return .init(command)
 //    }
 }
 

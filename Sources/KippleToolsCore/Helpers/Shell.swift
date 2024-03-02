@@ -1,7 +1,6 @@
 // Copyright © 2024 Brian Drelling. All rights reserved.
 
 import Foundation
-@_implementationOnly import ShellOut
 
 public struct Shell {
     private let executablePath: String
