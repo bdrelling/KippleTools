@@ -21,18 +21,18 @@ final class ShellCommandTests: XCTestCase {
         try sh("rm -rf GitTestOrigin", at: tempFolderPath)
         try sh("rm -rf GitTestClone", at: tempFolderPath)
 
-        // Create our origin folder.
+        // Create a origin repository
         let originPath = tempFolderPath + "/GitTestOrigin"
         try sh(.createFolder(named: "GitTestOrigin"), at: tempFolderPath)
+        try sh(.gitInit(), at: originPath)
 
-        // Git config is necessary for our CI tests on Linux.
+        // Set up our Git config, which is necessary for our CI tests on Linux.
         #if os(Linux)
         try sh(.gitConfig(.add("user.email", value: "tester@github.actions.com"), config: .local), at: originPath)
         try sh(.gitConfig(.add("user.name", value: "GitHub Actions"), config: .local), at: originPath)
         #endif
 
-        // Create a origin repository and make a commit with a file
-        try sh(.gitInit(), at: originPath)
+        // Mkake a commit with a file
         try sh(.createFile(named: "Test", contents: "Hello world"), at: originPath)
         try sh(.gitCommit(message: "Commit"), at: originPath)
 
