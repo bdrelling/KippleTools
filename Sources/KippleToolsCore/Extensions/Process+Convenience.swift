@@ -5,8 +5,8 @@ import Foundation
 public extension Process {
     // MARK: Properties
 
-    override var description: String {
-        var executablePath = self.executableURL?.path() ?? ""
+    var prettyPrinted: String {
+        var executablePath = self.executableURL?.path ?? ""
         var arguments = self.arguments ?? []
 
         // If we're running a shell command and our first argument is "-c",
@@ -120,7 +120,7 @@ public extension Process {
         #endif
 
         if isVerbose {
-            print("[Kipple] Executing: \(self)")
+            print("[Kipple] Executing: \(self.prettyPrinted)")
         }
 
         try self.run()

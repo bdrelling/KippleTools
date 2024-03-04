@@ -63,7 +63,7 @@ public struct Shell {
 // MARK: - Convenience
 
 public extension Shell {
-    static let `default`: Self = .bash
+    static let `default`: Self = .sh
 
     static let sh: Self = .init(executablePath: "/bin/sh")
     static let bash: Self = .init(executablePath: "/bin/bash")
