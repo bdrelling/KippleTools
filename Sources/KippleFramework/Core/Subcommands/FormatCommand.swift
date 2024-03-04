@@ -7,12 +7,12 @@ import KippleToolsCore
 // swiftformat:options --varattributes prev-line
 struct FormatCommand: ParsableCommand, VerboseLogging {
     // MARK: Configuration
-    
+
     static let configuration: CommandConfiguration = .init(
         commandName: "format",
         abstract: "Formats Swift files."
     )
-    
+
     // MARK: Arguments
 
     @Option(name: .customLong("config"), help: "The SwiftFormat configuration file path or template to use. (default: \".swiftformat\")")
@@ -38,11 +38,11 @@ struct FormatCommand: ParsableCommand, VerboseLogging {
 
     @Flag(name: .customLong("verbose"), help: "Whether or not to print debugging information and verbose SwiftFormat output.")
     var isVerbose: Bool = false
-    
+
     // MARK: Initializers
 
     init() {}
-    
+
     // MARK: Methods
 
     mutating func run() throws {

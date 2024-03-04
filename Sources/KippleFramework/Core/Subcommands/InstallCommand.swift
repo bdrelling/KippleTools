@@ -7,12 +7,12 @@ import KippleToolsCore
 // swiftformat:options --varattributes prev-line
 struct InstallCommand: ParsableCommand, VerboseLogging {
     // MARK: Configuration
-    
+
     static let configuration: CommandConfiguration = .init(
         commandName: "install",
         abstract: "Installs this executable into the user's local bin directory."
     )
-    
+
     // MARK: Arguments
 
     @Flag(name: .customLong("verbose"), help: "Whether or not to print debugging information.")
@@ -22,9 +22,9 @@ struct InstallCommand: ParsableCommand, VerboseLogging {
     private var configuration: BuildConfiguration = .release
 
     // MARK: Initializers
-    
+
     init() {}
-    
+
     // MARK: Methods
 
     mutating func run() throws {

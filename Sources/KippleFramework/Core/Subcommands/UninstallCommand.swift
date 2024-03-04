@@ -7,21 +7,21 @@ import KippleToolsCore
 // swiftformat:options --varattributes prev-line
 struct UninstallCommand: ParsableCommand, VerboseLogging {
     // MARK: Configuration
-    
+
     static let configuration: CommandConfiguration = .init(
         commandName: "uninstall",
         abstract: "Uninstalls this executable by removing it from the user's local bin directory."
     )
-    
+
     // MARK: Arguments
 
     @Flag(name: .customLong("verbose"), help: "Whether or not to print debugging information.")
     var isVerbose: Bool = false
-    
+
     // MARK: Initializers
 
     init() {}
-    
+
     // MARK: Methods
 
     mutating func run() throws {

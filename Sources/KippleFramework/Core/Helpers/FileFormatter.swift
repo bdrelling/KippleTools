@@ -160,7 +160,6 @@ final class FileFormatter {
         } else {
             // Since config was provided and there is no path or template, return an error.
             throw FormatError.configurationFileNotFound(configurationFile)
-            
         }
     }
 
@@ -183,7 +182,7 @@ final class FileFormatter {
     private func addFilesToCommit(files: [String]) throws {
         let commands = files.map { "git add \($0)" }
         let combinedCommand = commands.joined(separator: " && ")
-        
+
         try Shell.bash(combinedCommand)
     }
 }
