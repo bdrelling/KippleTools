@@ -28,13 +28,16 @@ final class ShellCommandTests: XCTestCase {
 
         // Set up our Git config, which is necessary for our CI tests on Linux.
         #if os(Linux)
-        try sh(.gitConfig(.add("user.email", value: "tester@github.actions.com"), config: .local), at: originPath)
-        try sh(.gitConfig(.add("user.name", value: "GitHub Actions"), config: .local), at: originPath)
+        let command1: ShellCommand = .gitConfig(.add("user.email", value: "tester@github.actions.com"), config: .local)
+        print(command1)
+        XCTAssertEqual(command1, "git config --add user.email tester@github.action.com")
+        try self.sh(command1, at: originPath)
+        try self.sh(.gitConfig(.add("user.name", value: "GitHub Actions"), config: .local), at: originPath)
         #endif
 
         // Mkake a commit with a file
-        try sh(.createFile(named: "Test", contents: "Hello world"), at: originPath)
-        try sh(.gitCommit(message: "Commit"), at: originPath)
+        try self.sh(.createFile(named: "Test", contents: "Hello world"), at: originPath)
+        try self.sh(.gitCommit(message: "Commit"), at: originPath)
 
         // Clone to a new repository and read the file
         let clonePath = tempFolderPath + "/GitTestClone"
