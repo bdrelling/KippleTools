@@ -113,11 +113,11 @@ public enum GitConfigAction {
 
     var rawValue: String {
         switch self {
-        case .help: "--help"
-        case let .get(name): "--get \(name)"
-        case let .add(name, value): "--add \(name) \(value)"
-        case let .unset(name): "--unset \(name)"
-        case .list: "--list"
+        case .help: return "--help"
+        case let .get(name): return "--get \(name)"
+        case let .add(name, value): return "--add \(name) \(value)"
+        case let .unset(name): return "--unset \(name)"
+        case .list: return "--list"
         }
     }
 }
