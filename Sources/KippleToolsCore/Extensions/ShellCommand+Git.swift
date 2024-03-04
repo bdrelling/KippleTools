@@ -67,13 +67,13 @@ public extension ShellCommand {
         return command
     }
 
-    /// Checkout a given git branch
+    /// Checkout a given git branch.
     static func gitCheckout(branch: String) -> Self {
         .init("git checkout", arguments: [branch, "--quiet"])
     }
 
-    /// Runs an action of the `git config` subcommand.
-    static func gitConfig(_ action: String, config: GitConfig? = nil, allowingPrompt: Bool = true) -> Self {
+    /// Runs the `git config` subcommand.
+    static func gitConfig(_ action: String? = nil, config: GitConfig? = nil, allowingPrompt: Bool = true) -> Self {
         var command: Self = .git(allowingPrompt: allowingPrompt)
             .appending("config")
 
@@ -81,12 +81,14 @@ public extension ShellCommand {
             command.append("--\(config.rawValue)")
         }
 
-        command.append(action)
+        if let action {
+            command.append(action)
+        }
 
         return command
     }
 
-    static func gitConfig(_ action: GitConfigAction = .help, config: GitConfig = .local, allowingPrompt: Bool = true) -> Self {
+    static func gitConfig(_ action: GitConfigAction, config: GitConfig? = nil, allowingPrompt: Bool = true) -> Self {
         self.gitConfig(action.rawValue, config: config, allowingPrompt: allowingPrompt)
     }
 }
@@ -115,7 +117,7 @@ public enum GitConfigAction {
         switch self {
         case .help: return "--help"
         case let .get(name): return "--get \(name)"
-        case let .add(name, value): return "--add \(name) \(value)"
+        case let .add(name, value): return "--add \(name) \"\(value)\""
         case let .unset(name): return "--unset \(name)"
         case .list: return "--list"
         }

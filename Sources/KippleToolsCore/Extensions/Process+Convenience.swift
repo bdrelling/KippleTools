@@ -3,6 +3,26 @@
 import Foundation
 
 public extension Process {
+    // MARK: Properties
+
+    override var description: String {
+        var executablePath = self.executableURL?.path() ?? ""
+        var arguments = self.arguments ?? []
+
+        // If we're running a shell command and our first argument is "-c",
+        // we replace "/bin/sh -c" with "$" for familiarity and readability.
+        if ["/bin/sh", "/bin/bash", "/bin/zsh"].contains(executablePath) {
+            if arguments.first == "-c" {
+                arguments = Array(arguments.dropFirst())
+                executablePath = "$"
+            }
+        }
+
+        let argumentString = arguments.joined(separator: " ")
+
+        return "\(executablePath) \(argumentString)".trimmingCharacters(in: .whitespaces)
+    }
+
     // MARK: Initializers
 
     convenience init(
@@ -65,7 +85,7 @@ public extension Process {
 
     // Source: https://github.com/JohnSundell/ShellOut
     @discardableResult
-    func execute(outputHandle: FileHandle? = nil, errorHandle: FileHandle? = nil) throws -> String {
+    func execute(isVerbose: Bool = false, outputHandle: FileHandle? = nil, errorHandle: FileHandle? = nil) throws -> String {
         // Because FileHandle's readabilityHandler might be called from a
         // different queue from the calling queue, avoid a data race by
         // protecting reads and writes to outputData and errorData on
@@ -98,6 +118,10 @@ public extension Process {
             }
         }
         #endif
+
+        if isVerbose {
+            print("[Kipple] Executing: \(self)")
+        }
 
         try self.run()
 
@@ -134,7 +158,13 @@ public extension Process {
                 )
             }
 
-            return outputData.shellOutput()
+            let output = outputData.shellOutput()
+
+            if isVerbose {
+                print("[Kipple] Output: \(output)")
+            }
+
+            return output
         }
     }
 }

@@ -20,6 +20,7 @@ public struct Shell {
         arguments: [String] = [],
         environment: [String: String]? = nil,
         at workingDirectory: String? = nil,
+        isVerbose: Bool = false,
         outputHandle: FileHandle? = nil,
         errorHandle: FileHandle? = nil
     ) throws -> String {
@@ -31,7 +32,11 @@ public struct Shell {
             at: workingDirectory
         )
 
-        return try process.execute(outputHandle: outputHandle, errorHandle: errorHandle)
+        return try process.execute(
+            isVerbose: isVerbose,
+            outputHandle: outputHandle,
+            errorHandle: errorHandle
+        )
     }
 
     @discardableResult
@@ -39,6 +44,7 @@ public struct Shell {
         _ command: ShellCommand,
         environment: [String: String]? = nil,
         at workingDirectory: String? = nil,
+        isVerbose: Bool = false,
         outputHandle: FileHandle? = nil,
         errorHandle: FileHandle? = nil
     ) throws -> String {
@@ -47,6 +53,7 @@ public struct Shell {
             arguments: command.arguments,
             environment: environment,
             at: workingDirectory,
+            isVerbose: isVerbose,
             outputHandle: outputHandle,
             errorHandle: errorHandle
         )
