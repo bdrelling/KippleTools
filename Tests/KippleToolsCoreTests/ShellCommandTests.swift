@@ -28,10 +28,7 @@ final class ShellCommandTests: XCTestCase {
 
         // Set up our Git config, which is necessary for our CI tests on Linux.
         #if os(Linux)
-        let command1: ShellCommand = .gitConfig(.add("user.email", value: "tester@github.actions.com"), config: .local)
-        print(command1)
-        XCTAssertEqual(command1, "git config --add user.email tester@github.action.com")
-        try self.sh(command1, at: originPath)
+        try self.sh(.gitConfig(.add("user.email", value: "tester@github.actions.com"), config: .local), at: originPath)
         try self.sh(.gitConfig(.add("user.name", value: "GitHub Actions"), config: .local), at: originPath)
         #endif
 
