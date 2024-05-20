@@ -43,6 +43,10 @@
 # Disabled because this rule is stripping the keyword "async" in closures (as of 0.49.13).
 --disable unusedArguments
 
+# Remove redundant backticks around identifiers.
+# Disabled because this rule is stripping the backticks from `self` when used to reduce ambiguation (as of 0.53.10)
+--disable redundantBackticks
+
 #-----------------#
 # File Exclusions #
 #-----------------#
